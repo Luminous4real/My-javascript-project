@@ -70,6 +70,29 @@
     font-size: 24px;
     color: orange;
 }
+nav .menu div{
+            position: absolute;
+            top: -20px;
+            left: -15px;
+            z-index: -1;
+            display: none;
+            flex-direction: column;
+            padding: 10px;
+            background-color: navy;
+            height: 100vh;
+        }
+        nav .menu:focus-within div {
+            display: flex;
+        }
+        @media only screen and (max-width:750px) {
+            nav .menu {
+                display: block;
+            }
+            nav .items{
+                display: none;
+            }
+        }
+
 
 
         
@@ -79,7 +102,15 @@
     <nav class="navbar navbar-expand-lg fw-bold" style="background-color: orange;">
         <div class="container">
             <a class="navbar-brand text-white" href="#">Luminous</a>
-            <div class="collapse navbar-collapse">
+            
+            <!-- Navbar Toggle Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Navbar Items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <form class="d-flex mx-auto">
                     <input class="form-control me-2" type="search" placeholder="Search">
                     <button class="btn btn-outline-light">Search</button>
@@ -90,9 +121,7 @@
                             <img src="ACC.png" alt="Account" width="24"> <span id="user-name">Guest</span>
                         </a>
                         <ul class="dropdown-menu">
-                            <!-- <li><a class="dropdown-item auth-btn text-white text-center" href="#">Sign Up</a></li> -->
                             <li><a id="signup-btn" class="dropdown-item auth-btn text-dark text-center" href="#">Sign Up</a></li>
- 
                             <br>
                             <li><a id="signin-btn" class="dropdown-item auth-btn text-dark text-center" href="#">Sign in</a></li>
                         </ul>
@@ -107,6 +136,7 @@
             </div>
         </div>
     </nav>
+    
 
     <div class="container mt-4">
         <h1 class="text-center">Welcome, <span id="user-welcome">Guest</span>!</h1>
