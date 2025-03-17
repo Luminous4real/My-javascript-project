@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a35201, #ffb347);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 350px;
+            background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+            border-radius: 40px;
+            padding: 25px 35px;
+            border: 5px solid rgb(255, 255, 255);
+            box-shadow: rgba(231, 178, 2, 0.878) 0px 30px 30px -20px;
+            margin: 20px auto;
+        }
+        .heading {
+            text-align: center;
+            font-weight: 900;
+            font-size: 30px;
+            color: rgb(224, 192, 6);
+        }
+        .form {
+            margin-top: 20px;
+        }
+        .form .input {
+            width: 100%;
+            background: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            box-shadow: #cff0ff 0px 10px 10px -5px;
+            border-inline: 2px solid transparent;
+        }
+        .form .input:focus {
+            outline: none;
+            border-inline: 2px solid #12b1d1;
+        }
+        .form .password-container {
+            position: relative;
+        }
+        .form .show-password {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .form .login-button {
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            background: linear-gradient(45deg, rgb(230, 226, 5) 0%, rgb(209, 165, 18) 100%);
+            color: white;
+            padding-block: 15px;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: rgba(235, 192, 2, 0.878) 0px 20px 10px -15px;
+            border: none;
+        }
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heading">Sign Up</div>
+        <form class="form" id="signupForm">
+            <input id="fullname" placeholder="Full Name" type="text" class="input" required>
+            <input id="email" placeholder="E-mail" type="email" class="input" required>
+
+            <!-- Password Fields -->
+            <div class="password-container">
+                <input id="password" placeholder="Password" type="password" class="input" required>
+            </div>
+            <div class="password-container">
+                <input id="confirm-password" placeholder="Confirm Password" type="password" class="input" required>
+            </div>
+            
+            <!-- Show Password Checkbox -->
+            <label class="show-password">
+                <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Show Password
+            </label>
+
+            <p id="password-error" class="error-message">Passwords do not match.</p>
+            <button type="submit" class="login-button">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const confirmPasswordField = document.getElementById("confirm-password");
+            const showPasswordCheckbox = document.getElementById("show-password");
+
+            if (showPasswordCheckbox.checked) {
+                passwordField.type = "text";
+                confirmPasswordField.type = "text";
+            } else {
+                passwordField.type = "password";
+                confirmPasswordField.type = "password";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("signupForm").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const fullname = document.getElementById("fullname").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const password = document.getElementById("password").value;
+                const confirmPassword = document.getElementById("confirm-password").value;
+                const passwordError = document.getElementById("password-error");
+
+                // Regex for strong password validation
+                const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                if (!passwordRegex.test(password)) {
+                    alert("⚠️ Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.");
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    alert("⚠️ Passwords do not match!");
+                    passwordError.textContent = "⚠️ Passwords do not match.";
+                    passwordError.style.display = "block";
+                    return;
+                } else {
+                    passwordError.style.display = "none";
+                }
+
+                const hashedPassword = btoa(password); // Base64 encoding (not secure for real apps)
+
+                // Save user details to localStorage
+                localStorage.setItem("userFullName", fullname);
+                localStorage.setItem("userEmail", email);
+                localStorage.setItem("userPassword", hashedPassword);
+
+                alert("✅ Sign-up successful! Your details have been saved.");
+                window.location.href = "ecomance.html";
+            });
+        });
+    </script>
+</body>
+</html>

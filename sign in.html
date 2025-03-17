@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecomance Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #a35201, #ffb347);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 350px;
+            background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+            border-radius: 40px;
+            padding: 25px 35px;
+            border: 5px solid rgb(255, 255, 255);
+            box-shadow: rgba(133, 189, 215, 0.878) 0px 30px 30px -20px;
+            margin: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            font-weight: 900;
+            font-size: 30px;
+            color: rgb(211, 149, 16);
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+
+        .form .input {
+            width: 100%;
+            background: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            box-shadow: #cff0ff 0px 10px 10px -5px;
+            border-inline: 2px solid transparent;
+        }
+
+        .form .input:focus {
+            outline: none;
+            border-inline: 2px solid #e7c503;
+        }
+
+        .form .forgot-password {
+            display: block;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .form .forgot-password a {
+            font-size: 11px;
+            color: #ffbb00;
+            text-decoration: none;
+        }
+
+        .form .show-password {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .form .login-button {
+            display: block;
+            width: 100%;
+            font-weight: bold;
+            background: linear-gradient(45deg, rgb(211, 149, 16) 0%, rgb(240, 129, 3) 100%);
+            color: white;
+            padding-block: 15px;
+            margin: 20px auto;
+            border-radius: 20px;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .form .login-button:hover {
+            transform: scale(1.03);
+        }
+
+        .agreement {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .agreement a {
+            text-decoration: none;
+            color: #ff9900;
+            font-size: 9px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heading">Sign In</div>
+
+    <form id="loginForm" class="form">
+        <input required class="input" type="email" name="email" id="email" placeholder="E-mail">
+        <input required class="input" type="password" name="password" id="password" placeholder="Password">
+        
+        <!-- Show Password Checkbox -->
+        <label class="show-password">
+            <input type="checkbox" id="show-password" onclick="togglePasswordVisibility()"> Show Password
+        </label>
+
+        <span class="forgot-password"><a href="#">Forgot Password?</a></span>
+        <input class="login-button" type="submit" value="Sign In">
+    </form>
+
+    <p id="passwordError" style="color: red; font-size: 12px;"></p>
+
+    <span class="agreement"><a href="#">Learn user licence agreement</a></span>
+</div>
+
+<script>
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const showPasswordCheckbox = document.getElementById("show-password");
+
+        passwordField.type = showPasswordCheckbox.checked ? "text" : "password";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const storedUser = JSON.parse(localStorage.getItem(email));
+
+        if (!storedUser) {
+            alert("User does not exist. Please sign up first.");
+            return;
+        }
+
+        if (storedUser.password !== password) {
+            alert("Incorrect password. Please try again.");
+            return;
+        }
+
+        alert("Login successful!");
+        window.location.href = "ecomance.html";
+    });
+</script>
+
+</body>
+</html>
