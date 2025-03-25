@@ -7,7 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ecomance</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <style>
+        body {
+    padding-top: 80px; /* Adjust based on navbar height */
+}
+
         .product-card {
             border: 1px solid #ddd;
             border-radius: 10px;
@@ -30,37 +35,6 @@
             display: none;
             margin-top: 10px;
         }
-
-        
-        .nav-item.dropdown:hover .dropdown-menu {
-            display: block;
-        }
-
-       
-        .dropdown-menu {
-            width: 250px;
-            padding: 15px;
-        }
-
-       
-        .dropdown-item.signin-btn {
-            background-color: #ff8000;
-            color: white;
-            text-align: center;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background 0.3s ease;
-        }
-
-        
-        .dropdown-item.signin-btn:hover {
-            background-color: #e67300;
-        }
-
-        
-        .cart-container {
-            position: relative;
-        }
         .cart-badge {
             position: absolute;
             top: -5px;
@@ -70,65 +44,71 @@
             border-radius: 50%;
             font-size: 12px;
             padding: 4px 8px;
+            display: none;
         }
-        .dropdown-hover {
-        transition: background 0.3s ease, color 0.3s ease;
-    }
+        /* Dropdown Menu Styling */
+.dropdown-menu {
+    min-width: 180px;
+    text-align: center;
+    border-radius: 8px;
+}
 
-    .dropdown-hover:hover {
-        background-color: orange !important;
-        color: white !important;
-    }
-        
+/* Orange Hover Effect */
+.dropdown-menu .dropdown-item {
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: orange !important;
+    color: white !important;
+}
+
+
+
     </style>
 </head>
 <body class="bg-light">
-    <nav class="navbar navbar-expand-lg fw-bold" style="background-color: orange;">
-        <div class="container">
-            <!-- Dropdown for Luminous -->
-            <div class="nav-item dropdown">
-                <a class="navbar-brand text-white dropdown-toggle fw-bold" href="#" id="luminousDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Luminous
+    <!-- Navigation Bar -->
+    <nav class="navbar fw-bold fixed-top" style="background-color: orange; padding: 10px 15px;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Luminous Dropdown -->
+            <div class="dropdown">
+                <a class="navbar-brand text-white dropdown-toggle" href="#" id="luminousDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="./LUMINOUS.png" alt="" width="40" height="40" class="me-2"> Luminous
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item fw-bold dropdown-hover" href="#" onclick="goToAboutUs()">About Us</a></li>
-
-                    <li><a class="dropdown-item fw-bold dropdown-hover" href="#" onclick="goToUserProfile()">User Profile</a></li>
-                    <li><a class="dropdown-item fw-bold dropdown-hover" href="#" onclick="goToHelpCenter()">Help Center</a></li>
+                    <li><a class="dropdown-item" href="Help center.html">Help Center</a></li>
+                    <li><a class="dropdown-item" href="about us.html">About Us</a></li>
+                    <li><a class="dropdown-item" href="user profile.html">User Profile</a></li>
                 </ul>
+                <a class="nav-link text-white fw-bold" href="#" id="Help-center"></a>
+                <a class="nav-link text-white fw-bold" href="#" id="about-us"></a>
+                <a class="nav-link text-white fw-bold" href="#" id="user-profile"></a>
+                
             </div>
+            
     
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <!-- Right Side: Cart & Sign Out -->
+            <div class="d-flex align-items-center">
+                <!-- Cart -->
+                <a class="nav-link text-white position-relative me-3" href="cart page.html">
+                    <img src="CART.png" alt="Cart" width="24"> Cart
+                    <span id="cart-count" class="cart-badge">0</span>
+                </a>
     
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="mx-auto">
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit">Search</button>
-                    </form>
-                </div>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" href="index.html">Go to Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white cart-container" href="#" id="cart-btn">
-                            <img src="CART.png" alt="Cart" width="24" height="24"> Cart
-                            <span id="cart-count" class="cart-badge" style="display: none;">0</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold" href="#" id="sign-out-btn">Sign Out</a>
-                    </li>
-                </ul>
+                <!-- Sign Out -->
+                <a class="nav-link text-white fw-bold" href="#" id="sign-out-btn">Sign Out</a>
             </div>
         </div>
     </nav>
     
-    <div class="container mt-4">
-        <h1 class="text-center">Welcome To Luminous</h1>
+    
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="text-center">Welcome to Luminous</h1>
+    </div>
+    
         <p id="err" class="text-danger text-center"></p>
         <div class="text-center">
             <div class="spinner-border text-danger" role="status" id="spinner">
@@ -136,59 +116,88 @@
             </div>
         </div>
         <div id="display" class="row mt-4"></div>
+        <div id="cart-items"></div>
+
     </div>
-    <footer class="bg-dark text-white mt-5 py-4">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>About Us</h5>
-                    <p>
-                        Luminous is your go-to store for high-quality products at the best prices. 
-                        We offer a wide range of products to meet your every need.
-                    </p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Contact</h5>
-                    <p>Email: support@luminous.com</p>
-                    <p>Phone: +1 234 567 890</p>
-                    <p>Address: 123 Ecom Street, Online City, Web</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Follow Us</h5>
-                    <a href="#" class="text-white me-3">
-                        <i class="fab fa-facebook fa-2x"></i>
-                    </a>
-                    <a href="#" class="text-white me-3">
-                        <i class="fab fa-twitter fa-2x"></i>
-                    </a>
-                    <a href="#" class="text-white me-3">
-                        <i class="fab fa-instagram fa-2x"></i>
-                    </a>
+
+    <!-- Footer -->
+<!-- Footer -->
+<footer class="bg-dark text-white mt-5 py-5">
+    <div class="container">
+        <div class="row">
+            <!-- About Us Section -->
+            <div class="col-md-3">
+                <h5 class="fw-bold text-white">About Luminous</h5>
+                <p class="text-white">Luminous is your go-to store for premium quality products. We provide a seamless shopping experience with secure payments and fast delivery.</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-md-3">
+                <h5 class="fw-bold text-white">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+                    <li><a href="shop.html" class="text-white text-decoration-none">Shop</a></li>
+                    <li><a href="cart.html" class="text-white text-decoration-none">Cart</a></li>
+                    <li><a href="contact.html" class="text-white text-decoration-none">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Customer Support -->
+            <div class="col-md-3">
+                <h5 class="fw-bold text-white">Customer Support</h5>
+                <ul class="list-unstyled">
+                    <li><a href="faq.html" class="text-white text-decoration-none">FAQs</a></li>
+                    <li><a href="returns.html" class="text-white text-decoration-none">Return Policy</a></li>
+                    <li><a href="shipping.html" class="text-white text-decoration-none">Shipping Information</a></li>
+                    <li><a href="terms.html" class="text-white text-decoration-none">Terms & Conditions</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter & Social Media -->
+            <div class="col-md-3">
+                <h5 class="fw-bold text-white">Stay Connected</h5>
+                <p class="text-white">Subscribe to our newsletter for the latest updates and exclusive offers.</p>
+                <form class="d-flex">
+                    <input type="email" class="form-control me-2" placeholder="Enter your email">
+                    <button class="btn btn-primary">Subscribe</button>
+                </form>
+                <div class="mt-3">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
                 </div>
             </div>
-            <hr class="mt-4">
-            <p class="mb-0">&copy; 2025 Luminous. All Rights Reserved.</p>
         </div>
-    </footer>
 
+        <hr class="text-white">
 
+        <div class="text-center">
+            <p class="mb-0 text-white">&copy; 2025 Luminous. All Rights Reserved.</p>
+            <p class="mb-0 text-white">Designed with ❤️ by Luminous Team</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- JavaScript -->
     <script>
-        let cartCount = 0;
+        let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
+    
         document.addEventListener("DOMContentLoaded", () => {
             const display = document.getElementById("display");
             const spinner = document.getElementById("spinner");
             const errorMsg = document.getElementById("err");
-            const cartCounter = document.getElementById("cart-count");
-
+    
+            // Fetch products from API
             fetch('https://fakestoreapi.com/products')
-                .then((res) => res.json())
-                .then((data) => {
+                .then(response => response.json())
+                .then(data => {
                     spinner.style.display = 'none';
-
+    
                     data.forEach((product, index) => {
                         const { image, title, category, description, price } = product;
-
+    
                         display.innerHTML += `
                             <div class="col-md-4">
                                 <div class="product-card">
@@ -196,209 +205,157 @@
                                     <h5>${title}</h5>
                                     <p class="text-muted">${category}</p>
                                     <h6 class="text-success">$${price.toFixed(2)}</h6>
-                                    <button class="btn btn-primary add-to-cart-btn" data-id="${index}">Add to Cart</button>
+                                    <button class="btn btn-primary add-to-cart-btn" 
+                                        data-id="${index}" data-title="${title}" 
+                                        data-price="${price}" data-image="${image}">
+                                        Add to Cart
+                                    </button>
                                     <p class="description" id="desc-${index}">${description}</p>
                                     <button class="btn btn-primary mt-2 toggle-btn" data-id="${index}">Show More</button>
                                 </div>
                             </div>
                         `;
                     });
-
+    
                     document.querySelectorAll('.toggle-btn').forEach(button => {
-                        button.addEventListener('click', function () {
-                            const desc = document.getElementById(`desc-${this.dataset.id}`);
-                            if (desc.style.display === 'none' || desc.style.display === '') {
-                                desc.style.display = 'block';
-                                this.textContent = 'Show Less';
-                            } else {
-                                desc.style.display = 'none';
-                                this.textContent = 'Show More';
-                            }
-                        });
-                    });
+    button.addEventListener('click', function () {
+        const desc = document.getElementById(`desc-${this.dataset.id}`);
+        if (desc.style.display === 'none' || desc.style.display === '') {
+            desc.style.display = 'block';
+            this.textContent = 'Show Less';
+        } else {
+            desc.style.display = 'none';
+            this.textContent = 'Show More';
+        }
+    });
+});
 
+    
                     document.querySelectorAll('.add-to-cart-btn').forEach(button => {
                         button.addEventListener('click', function () {
-                            cartCount++;
-                            cartCounter.innerText = cartCount;
-                            cartCounter.style.display = 'inline-block';
+                            addToCart(this.dataset.title, parseFloat(this.dataset.price), this.dataset.image);
                         });
                     });
-                    
-    function addToCart(title, price, image) {
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        
-        // Check if item already exists in cart
-        let existingItem = cart.find(item => item.title === title);
-        if (existingItem) {
-            existingItem.quantity++;
-        } else {
-            cart.push({ title, price, image, quantity: 1 });
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${title} has been added to the cart!`);
-    }
-
-
-
+    
+                    updateCartCount();
                 })
-                .catch((error) => {
+                .catch(error => {
                     spinner.style.display = 'none';
                     errorMsg.innerText = "Failed to load products. Please try again later.";
-                    console.error("Error fetching data:", error);
                 });
         });
-        document.getElementById("cart-btn").addEventListener("click", function () {
-    window.location.href = "cart page.html"; 
-
-});
     
-    let cartItems = JSON.parse(localStorage.getItem("cart")) || []; 
-
-    document.addEventListener("DOMContentLoaded", () => {
-    const display = document.getElementById("display");
-    const spinner = document.getElementById("spinner");
-    const errorMsg = document.getElementById("err");
+        function addToCart(title, price, image) {
+            let existingItem = cartItems.find(item => item.title === title);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cartItems.push({ title, price, image, quantity: 1 });
+            }
+    
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+            updateCartCount();
+            alert(`${title} has been added to the cart!`);
+        }
+    
+        function updateCartCount() {
     const cartCounter = document.getElementById("cart-count");
+    if (!cartCounter) return;  // Prevents errors if cart-counter is missing
 
-    let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+    cartCounter.innerText = totalItems;
+    cartCounter.style.display = totalItems > 0 ? 'inline-block' : 'none';
+}
 
-    fetch('https://fakestoreapi.com/products')
-        .then((res) => res.json())
-        .then((data) => {
-            spinner.style.display = 'none';
-
-            data.forEach((product, index) => {
-                const { image, title, category, description, price } = product;
-
-                display.innerHTML += `
-                    <div class="col-md-4">
-                        <div class="product-card">
-                            <img src="${image}" alt="Product Image">
-                            <h5>${title}</h5>
-                            <p class="text-muted">${category}</p>
-                            <h6 class="text-success">$${price.toFixed(2)}</h6>
-                            <button class="btn btn-primary add-to-cart-btn" data-id="${index}" 
-                                data-title="${title}" data-price="${price}" data-image="${image}">Add to Cart</button>
-                            <p class="description" id="desc-${index}">${description}</p>
-                            <button class="btn btn-primary mt-2 toggle-btn" data-id="${index}">Show More</button>
-                        </div>
+    
+        function incrementItem(title) {
+            let item = cartItems.find(i => i.title === title);
+            if (item) {
+                item.quantity++;
+            }
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+            updateCartCount();
+            renderCart();
+        }
+    
+        function decrementItem(title) {
+            let item = cartItems.find(i => i.title === title);
+            if (item) {
+                item.quantity--;
+                if (item.quantity <= 0) {
+                    cartItems = cartItems.filter(i => i.title !== title);
+                }
+            }
+            localStorage.setItem("cart", JSON.stringify(cartItems));
+            updateCartCount();
+            renderCart();
+        }
+    
+        function renderCart() {
+            const cartContainer = document.getElementById("cart-items");
+            if (!cartContainer) return;
+    
+            cartContainer.innerHTML = "";
+            cartItems.forEach(item => {
+                cartContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" width="50">
+                        <span>${item.title}</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        <button onclick="decrementItem('${item.title}')" class="btn btn-sm btn-danger">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="incrementItem('${item.title}')" class="btn btn-sm btn-success">+</button>
                     </div>
                 `;
             });
-
-            // Toggle product description visibility
-            document.querySelectorAll('.toggle-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    const desc = document.getElementById(`desc-${this.dataset.id}`);
-                    if (desc.style.display === 'none' || desc.style.display === '') {
-                        desc.style.display = 'block';
-                        this.textContent = 'Show Less';
-                    } else {
-                        desc.style.display = 'none';
-                        this.textContent = 'Show More';
-                    }
-                });
-            });
-
-            // Add to Cart
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                button.addEventListener('click', function () {
-                    let product = {
-                        id: this.dataset.id,
-                        title: this.dataset.title,
-                        price: parseFloat(this.dataset.price),
-                        image: this.dataset.image,
-                        quantity: 1
-                    };
-
-                    let existingItem = cartItems.find(item => item.id === product.id);
-                    if (existingItem) {
-                        existingItem.quantity++;
-                    } else {
-                        cartItems.push(product);
-                    }
-
-                    localStorage.setItem("cart", JSON.stringify(cartItems));
-
-                    cartCounter.innerText = cartItems.length;
-                    cartCounter.style.display = cartItems.length > 0 ? 'inline-block' : 'none';
-
-                    showCartSuccessMessage();
-                });
-            });
-
-            // Update cart counter on page load
-            cartCounter.innerText = cartItems.length;
-            cartCounter.style.display = cartItems.length > 0 ? 'inline-block' : 'none';
-
-        })
-        .catch((error) => {
-            spinner.style.display = 'none';
-            errorMsg.innerText = "Failed to load products. Please try again later.";
-            console.error("Error fetching data:", error);
-        });
-});
-
-// Show cart success message
-function showCartSuccessMessage() {
-    let cartContainer = document.querySelector('.cart-container');
-
-    let existingMessage = document.getElementById("cart-success-msg");
-    if (existingMessage) existingMessage.remove();
-
-    let successMessage = document.createElement("span");
-    successMessage.id = "cart-success-msg";
-    successMessage.innerText = "Item added!";
-    successMessage.style.position = "absolute";
-    successMessage.style.top = "30px";
-    successMessage.style.right = "0px";
-    successMessage.style.backgroundColor = "green";
-    successMessage.style.color = "white";
-    successMessage.style.padding = "5px 10px";
-    successMessage.style.borderRadius = "5px";
-    successMessage.style.fontSize = "12px";
-
-    cartContainer.appendChild(successMessage);
-
-    setTimeout(() => {
-        successMessage.remove();
-    }, 2000);
-}
-
-// Navigation function
-function navigateTo(page) {
-    window.location.href = page;
-}
-
-// Cart button navigation
-document.getElementById("cart-btn").addEventListener("click", function () {
-    window.location.href = "cart page.html";
-});
-
-// Sign Out functionality
-document.getElementById("sign-out-btn").addEventListener("click", function (event) {
-    event.preventDefault(); 
-
+        }
+    
+        document.getElementById("sign-out-btn").addEventListener("click", function (event) {
+    event.preventDefault();
     localStorage.removeItem("user");
     localStorage.removeItem("cart");
-
-    window.location.href = "welcome page.html";
+    window.location.href = "index.html";  // Ensure this file exists
 });
-function goToAboutUs() {
-    window.location.href = "about us.html"; // Change this to your actual About Us page URL
-}
-function goToHelpCenter() {
-    window.location.href = "Help center.html"; // Change this to your actual About Us page URL
-}
-function goToUserProfile() {
-    window.location.href = "user profile.html"; // Change this to your actual About Us page URL
-}
 
+    document.getElementById("cart-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        window.location.href = "cart page.html"; // Redirects to cart page
+    });
 
+    document.getElementById("Help center-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        window.location.href = "Help center.html"; // Redirects to cart page
+    });
+    document.getElementById("about us-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        window.location.href = "about us.html"; // Redirects to cart page
+    });
+    document.getElementById("user profile-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevents default link behavior
+        window.location.href = "user profile.html"; // Redirects to cart page
+    });
 
+    const loggedInUser = localStorage.getItem("loggedInUser");
+        if (!loggedInUser) {
+            alert("You must be logged in to access this page.");
+            window.location.href = "login.html";
+        } else {
+            const user = JSON.parse(localStorage.getItem(loggedInUser));
+            document.getElementById("welcomeMessage").textContent = `Hello, ${user.fullname}!`;
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "login.html";
+        }
+
+   
 </script>
+
+
+    
+    </script>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

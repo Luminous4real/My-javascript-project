@@ -125,34 +125,41 @@
 </div>
 
 <script>
+    // find() 
+    // const user = users.find(user => user.email.toLowerCase() === email.toLowerCase() && user.password === password);
+
+    
+
     function togglePasswordVisibility() {
         const passwordField = document.getElementById("password");
-        const showPasswordCheckbox = document.getElementById("show-password");
-
-        passwordField.type = showPasswordCheckbox.checked ? "text" : "password";
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
     }
 
-    document.getElementById("loginForm").addEventListener("submit", function (event) {
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
         event.preventDefault();
 
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
-        const storedUser = JSON.parse(localStorage.getItem(email));
+        // Get stored users from localStorage
+        let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        if (!storedUser) {
-            alert("User does not exist. Please sign up first.");
+        // Find the user (case insensitive email check)
+        const user = users.find(user => user.email.toLowerCase() === email.toLowerCase() && user.password === password);
+
+        if (!user) {
+            alert("Invalid email or password. Please try again.");
             return;
         }
 
-        if (storedUser.password !== password) {
-            alert("Incorrect password. Please try again.");
-            return;
-        }
+        // Save logged-in user session
+        localStorage.setItem("loggedInUser", JSON.stringify(user));
 
         alert("Login successful!");
-        window.location.href = "ecomance.html";
+        window.location.href = "ecomance.html"; // Redirect to home page
     });
+
+
 </script>
 
 </body>
